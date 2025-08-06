@@ -1,192 +1,122 @@
 <!DOCTYPE html>
-<html lang="mr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solar Hub Electrical - प्रधानमंत्री सुर्य घर योजना</title>
+    <title>SP Shop - Welcome Sanchita Didi</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Noto+Sans+Devanagari:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <div class="nav-brand">
-                <img src="logo.png" alt="Solar Hub Logo" class="logo">
-                <span class="brand-text">Solar Hub Electrical</span>
-            </div>
-            <div class="header-contact">
-                <div class="contact-item">
-                    <i class="fab fa-whatsapp"></i>
-                    <span>8551995225</span>
-                    <a href="tel:8551995225" class="click-link">Click here to get more information</a>
+    <!-- Login Page -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <div class="login-header">
+                <h1 class="shop-title">🎁 Welcome to SP Shop 🎁</h1>
+                <p class="subtitle">Special gifts for Sanchita Didi</p>
+                <div class="funny-image">
+                    <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300" alt="Funny cat with gifts" class="creative-img">
                 </div>
             </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-background">
-            <div class="solar-bg-overlay"></div>
-        </div>
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1 class="hero-title">
-                        <span class="title-main">SOLAR HUB ELECTRICAL</span>
-                        <span class="title-sub">प्रधानमंत्री सुर्य घर योजना</span>
-                    </h1>
-                    
-                    <div class="benefits-section">
-                        <h2 class="benefits-title">✲ रुफ टॉप सोलारचे फायदे ✲</h2>
-                        <div class="benefits-grid">
-                            <div class="benefit-item">
-                                <i class="fas fa-bolt"></i>
-                                <span>विजबिलापासून २५ वर्षे मुक्ती</span>
-                            </div>
-                            <div class="benefit-item">
-                                <i class="fas fa-leaf"></i>
-                                <span>झीरो मेंटेनन्स खर्च</span>
-                            </div>
-                            <div class="benefit-item">
-                                <i class="fas fa-rupee-sign"></i>
-                                <span>२-३ वर्षात पैसे वसूल</span>
-                            </div>
-                            <div class="benefit-item">
-                                <i class="fas fa-tools"></i>
-                                <span>उत्तम मटेरियल आणि उत्तम सेवा</span>
-                            </div>
-                        </div>
-                        <div class="govt-facility">
-                            <i class="fas fa-star"></i>
-                            <span>राष्ट्रीयकृत बँकेची मानक दरात कर्ज सुविधा उपलब्ध</span>
-                        </div>
+            
+            <div class="login-form">
+                <h2>Enter to Start Shopping</h2>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="userName" placeholder="Enter your name" required>
                     </div>
-
-                    <div class="pricing-section">
-                        <div class="pricing-card">
-                            <h3>बिज आहेकोना त्यांच्या बँक खात्यात डिक्षित्दारे खालील प्रमाणे अनुदान वितरित</h3>
-                            <div class="price-list">
-                                <div class="price-item">
-                                    <span class="capacity">✱ १ किलोवॉटपर्यंत : </span>
-                                    <span class="amount">30,000 रुपये</span>
-                                </div>
-                                <div class="price-item">
-                                    <span class="capacity">✱ २ किलोवॉटपर्यंत : </span>
-                                    <span class="amount">60,000 रुपये</span>
-                                </div>
-                                <div class="price-item">
-                                    <span class="capacity">✱ ३ किलोवॉट व त्यापेक्षा जास्त</span>
-                                    <span class="amount">96,000 रुपये (कमाल)</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="pricing-card">
-                            <h3>छतावरील दरमहा विजनिर्मिती औद्यत्तुत्पादन ओर उर्जादारे</h3>
-                            <div class="price-list">
-                                <div class="price-item">
-                                    <span class="capacity">✱ १ किलोवॉट - </span>
-                                    <span class="amount">120 युनिट</span>
-                                </div>
-                                <div class="price-item">
-                                    <span class="capacity">✱ २ किलोवॉट - </span>
-                                    <span class="amount">240 युनिट</span>
-                                </div>
-                                <div class="price-item">
-                                    <span class="capacity">✱ ३ किलोवॉट - </span>
-                                    <span class="amount">360 युनिट</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="input-group">
+                        <i class="fas fa-phone"></i>
+                        <input type="tel" id="userPhone" placeholder="Enter your phone number" required>
                     </div>
-
-                    <div class="whatsapp-contact">
-                        <div class="whatsapp-item">
-                            <i class="fab fa-whatsapp"></i>
-                            <span>8551995225</span>
-                            <a href="https://wa.me/918551995225" class="click-link">Click here to get more information</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hero-images">
-                    <div class="solar-image-grid">
-                        <img src="solar-panel-1.jpg" alt="Solar Panel Installation" class="solar-img">
-                        <img src="solar-panel-2.jpg" alt="Solar Panel Maintenance" class="solar-img">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Solar Information Section -->
-    <section class="solar-info">
-        <div class="container">
-            <h2 class="section-title">सोलार एनर्जी सिस्टम</h2>
-            <div class="info-grid">
-                <div class="info-card">
-                    <img src="solar-system-1.jpg" alt="Solar System" class="info-image">
-                    <div class="info-content">
-                        <h3>आवासीय सोलार सिस्टम</h3>
-                        <p>घरगुती वापरासाठी योग्य सोलार पॅनल सिस्टम. कमी जागेत जास्त ऊर्जा निर्मिती करणारे उच्च दर्जाचे सोलार पॅनल.</p>
-                        <ul>
-                            <li>२५ वर्षांची हमी</li>
-                            <li>कमी देखभाल खर्च</li>
-                            <li>तत्काळ स्थापना</li>
-                        </ul>
-                    </div>
-                </div>
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-gift"></i> Start Shopping
+                    </button>
+                </form>
                 
-                <div class="info-card">
-                    <img src="solar-system-2.jpg" alt="Commercial Solar" class="info-image">
-                    <div class="info-content">
-                        <h3>व्यावसायिक सोलार सिस्टम</h3>
-                        <p>मोठ्या व्यावसायिक संस्था आणि कारखान्यांसाठी विशेष डिझाइन केलेले सोलार सिस्टम. मोठ्या प्रमाणात ऊर्जा बचत.</p>
-                        <ul>
-                            <li>उच्च क्षमतेचे पॅनल</li>
-                            <li>सरकारी सबसिडी</li>
-                            <li>EMI सुविधा उपलब्ध</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="info-card">
-                    <img src="solar-system-3.jpg" alt="Solar Installation" class="info-image">
-                    <div class="info-content">
-                        <h3>सोलार स्थापना सेवा</h3>
-                        <p>अनुभवी तंत्रज्ञांकडून व्यावसायिक सोलार स्थापना सेवा. संपूर्ण प्रक्रिया पारदर्शक आणि वेळेत पूर्ण.</p>
-                        <ul>
-                            <li>मोफत सर्व्हे</li>
-                            <li>तज्ञांचा सल्ला</li>
-                            <li>आजीवन तांत्रिक सहाय्य</li>
-                        </ul>
+                <div id="errorMessage" class="error-message hidden">
+                    <h2>🤪 COME IN NEXT YEAR OF RAKSHA BANDHAN! 🤪</h2>
+                    <p>Please fill in both name and number to continue!</p>
+                    <div class="funny-gif">
+                        <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=200" alt="Funny waiting cat">
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <img src="logo.png" alt="Solar Hub Logo" class="footer-logo">
-                    <h3>SOLAR HUB ELECTRICAL</h3>
-                    <p>ALL TYPES OF COMMERCIAL & RESIDENTIAL SOLAR SYSTEM</p>
+    <!-- Main Shop Page -->
+    <div id="shopPage" class="page">
+        <header class="header">
+            <div class="container">
+                <h1 class="logo">🎁 SP Shop</h1>
+                <div class="user-info">
+                    <span id="welcomeUser"></span>
+                    <button class="cart-btn" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cartCount">0</span>
+                    </button>
                 </div>
-                <div class="footer-contact">
-                    <h4>संपर्क माहिती</h4>
-                    <p><i class="fas fa-phone"></i> 8551995225</p>
-                    <p><i class="fab fa-whatsapp"></i> WhatsApp: 8551995225</p>
-                    <p><i class="fas fa-envelope"></i> info@solarhubelectrical.com</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="container">
+                <div class="hero-section">
+                    <h2>Special Gifts for Sanchita Didi 💝</h2>
+                    <p>Your order will be delivered in 22 years! 😄</p>
+                </div>
+
+                <div class="products-grid" id="productsGrid">
+                    <!-- Products will be dynamically loaded -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Cart Sidebar -->
+        <div id="cartSidebar" class="cart-sidebar">
+            <div class="cart-header">
+                <h3><i class="fas fa-shopping-cart"></i> Your Cart</h3>
+                <button class="close-cart" onclick="toggleCart()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <!-- Cart items will be dynamically loaded -->
+            </div>
+            <div class="cart-footer">
+                <div class="cart-total">
+                    <strong>Total: ₹<span id="cartTotal">0</span></strong>
+                </div>
+                <button class="place-order-btn" onclick="placeOrder()">
+                    <i class="fas fa-check"></i> Place Order
+                </button>
+            </div>
+        </div>
+
+        <!-- Success Messages -->
+        <div id="successMessage" class="success-message hidden">
+            <div class="success-content">
+                <i class="fas fa-check-circle"></i>
+                <h3>Item Added to Cart Successfully!</h3>
+                <p>Keep shopping for more amazing gifts!</p>
+            </div>
+        </div>
+
+        <div id="orderSuccess" class="success-message hidden">
+            <div class="success-content">
+                <i class="fas fa-party-horn"></i>
+                <h2>🎉 Order Placed Successfully! 🎉</h2>
+                <p>Your gifts will be delivered in 22 years!</p>
+                <p>Thank you for shopping at SP Shop!</p>
+                <div class="celebration-img">
+                    <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=300" alt="Celebration">
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>

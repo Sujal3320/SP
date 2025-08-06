@@ -1,303 +1,392 @@
 // Enhanced JavaScript for Solar Hub Website
 
+// Global variables
+let currentUser = null;
+let cart = [];
+let products = [];
+
+// Gift products data with stock images
+const giftProducts = [
+    {
+        id: 1,
+        name: "Beautiful Jewelry Set",
+        price: 2999,
+        image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=400&fit=crop",
+        description: "Elegant jewelry set perfect for Sanchita Didi"
+    },
+    {
+        id: 2,
+        name: "Handcrafted Silk Saree",
+        price: 4999,
+        image: "https://images.unsplash.com/photo-1583391733956-6c78276477e5?w=400&h=400&fit=crop",
+        description: "Premium silk saree with beautiful patterns"
+    },
+    {
+        id: 3,
+        name: "Artisan Handbag",
+        price: 1999,
+        image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
+        description: "Handcrafted leather handbag"
+    },
+    {
+        id: 4,
+        name: "Crystal Perfume Set",
+        price: 1499,
+        image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop",
+        description: "Luxurious perfume collection"
+    },
+    {
+        id: 5,
+        name: "Traditional Bangles",
+        price: 899,
+        image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e0?w=400&h=400&fit=crop",
+        description: "Beautiful traditional bangles set"
+    },
+    {
+        id: 6,
+        name: "Decorative Photo Frame",
+        price: 699,
+        image: "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=400&h=400&fit=crop",
+        description: "Elegant photo frame for memories"
+    },
+    {
+        id: 7,
+        name: "Scented Candle Set",
+        price: 1299,
+        image: "https://images.unsplash.com/photo-1602874801006-926cfe1ea2a1?w=400&h=400&fit=crop",
+        description: "Aromatherapy candles for relaxation"
+    },
+    {
+        id: 8,
+        name: "Chocolate Gift Box",
+        price: 999,
+        image: "https://images.unsplash.com/photo-1549007953-2f2dc0b24019?w=400&h=400&fit=crop",
+        description: "Premium chocolate assortment"
+    },
+    {
+        id: 9,
+        name: "Flower Vase Set",
+        price: 1799,
+        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop",
+        description: "Beautiful ceramic vase collection"
+    }
+];
+
+// Initialize the app
 document.addEventListener('DOMContentLoaded', function() {
-    
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Header scroll effect
-    const header = document.querySelector('.header');
-    let lastScrollTop = 0;
-
-    window.addEventListener('scroll', () => {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        if (scrollTop > 100) {
-            header.style.background = 'linear-gradient(135deg, rgba(46,125,50,0.95), rgba(76,175,80,0.95))';
-            header.style.backdropFilter = 'blur(10px)';
-        } else {
-            header.style.background = 'linear-gradient(135deg, #2e7d32, #4caf50)';
-            header.style.backdropFilter = 'none';
-        }
-        
-        lastScrollTop = scrollTop;
-    });
-
-    // Intersection Observer for animations
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                
-                // Animate counter numbers if present
-                if (entry.target.classList.contains('amount')) {
-                    animateNumber(entry.target);
-                }
-            }
-        });
-    }, observerOptions);
-
-    // Observe elements for animation
-    const animatedElements = document.querySelectorAll('.info-card, .benefit-item, .pricing-card');
-    animatedElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-
-    // Enhanced click effects for buttons and links
-    const clickableElements = document.querySelectorAll('.click-link, .whatsapp-item');
-    clickableElements.forEach(element => {
-        element.addEventListener('click', function(e) {
-            // Create ripple effect
-            const ripple = document.createElement('span');
-            const rect = this.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            ripple.style.cssText = `
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(255,255,255,0.6);
-                transform: scale(0);
-                animation: ripple 0.6s linear;
-                width: ${size}px;
-                height: ${size}px;
-                left: ${x}px;
-                top: ${y}px;
-                pointer-events: none;
-            `;
-            
-            this.style.position = 'relative';
-            this.style.overflow = 'hidden';
-            this.appendChild(ripple);
-            
-            setTimeout(() => {
-                ripple.remove();
-            }, 600);
-        });
-    });
-
-    // Dynamic pricing calculation (if needed)
-    function calculateSolarSavings(capacity) {
-        const monthlyGeneration = capacity * 120; // units per month
-        const annualSavings = monthlyGeneration * 12 * 5; // assuming 5 rupees per unit
-        return {
-            monthly: monthlyGeneration,
-            annual: annualSavings
-        };
-    }
-
-    // WhatsApp integration with pre-filled message
-    const whatsappLinks = document.querySelectorAll('a[href*="wa.me"]');
-    whatsappLinks.forEach(link => {
-        const originalHref = link.getAttribute('href');
-        const message = encodeURIComponent('नमस्कार! मला Solar Hub Electrical च्या सोलार सिस्टम बद्दल माहिती हवी आहे. कृपया तपशील द्या.');
-        link.setAttribute('href', `${originalHref}?text=${message}`);
-    });
-
-    // Lazy loading for images
-    const imageObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                if (img.dataset.src) {
-                    img.src = img.dataset.src;
-                    img.classList.add('loaded');
-                    imageObserver.unobserve(img);
-                }
-            }
-        });
-    });
-
-    // Apply lazy loading to images
-    const lazyImages = document.querySelectorAll('img[data-src]');
-    lazyImages.forEach(img => imageObserver.observe(img));
-
-    // Parallax effect for hero background
-    window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset;
-        const heroBackground = document.querySelector('.hero-background');
-        if (heroBackground) {
-            const speed = scrolled * 0.5;
-            heroBackground.style.transform = `translateY(${speed}px)`;
-        }
-    });
-
-    // Auto-typing effect for title (optional)
-    function typeWriter(element, text, speed = 100) {
-        let i = 0;
-        element.innerHTML = '';
-        
-        function type() {
-            if (i < text.length) {
-                element.innerHTML += text.charAt(i);
-                i++;
-                setTimeout(type, speed);
-            }
-        }
-        type();
-    }
-
-    // Form validation (if contact form is added later)
-    function validateForm(form) {
-        const inputs = form.querySelectorAll('input[required], textarea[required]');
-        let isValid = true;
-        
-        inputs.forEach(input => {
-            if (!input.value.trim()) {
-                input.classList.add('error');
-                isValid = false;
-            } else {
-                input.classList.remove('error');
-            }
-        });
-        
-        return isValid;
-    }
-
-    // Mobile menu toggle (if navigation is added)
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    
-    if (mobileMenuToggle && navMenu) {
-        mobileMenuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-            mobileMenuToggle.classList.toggle('active');
-        });
-    }
-
-    // Smooth hover effects for cards
-    const cards = document.querySelectorAll('.info-card, .pricing-card, .benefit-item');
-    cards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-10px) scale(1.02)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-
-    // Back to top button
-    const backToTopButton = document.createElement('button');
-    backToTopButton.innerHTML = '<i class="fas fa-chevron-up"></i>';
-    backToTopButton.className = 'back-to-top';
-    backToTopButton.style.cssText = `
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        width: 50px;
-        height: 50px;
-        background: linear-gradient(135deg, #4caf50, #2e7d32);
-        color: white;
-        border: none;
-        border-radius: 50%;
-        cursor: pointer;
-        opacity: 0;
-        transition: all 0.3s ease;
-        z-index: 1000;
-        box-shadow: 0 4px 15px rgba(76,175,80,0.3);
-    `;
-    
-    document.body.appendChild(backToTopButton);
-    
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            backToTopButton.style.opacity = '1';
-            backToTopButton.style.transform = 'scale(1)';
-        } else {
-            backToTopButton.style.opacity = '0';
-            backToTopButton.style.transform = 'scale(0.8)';
-        }
-    });
-    
-    backToTopButton.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-
-    // Performance optimization: debounce scroll events
-    function debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    // Apply debouncing to scroll events
-    const debouncedScrollHandler = debounce(() => {
-        // Scroll-based animations and effects
-    }, 10);
-
-    window.addEventListener('scroll', debouncedScrollHandler);
-
-    // Loading animation
-    window.addEventListener('load', () => {
-        const loader = document.querySelector('.loader');
-        if (loader) {
-            loader.style.opacity = '0';
-            setTimeout(() => {
-                loader.style.display = 'none';
-            }, 500);
-        }
-    });
-
-    // Console welcome message
-    console.log('%c🌞 Solar Hub Electrical - Professional Solar Solutions', 
-        'color: #4caf50; font-size: 16px; font-weight: bold;');
-    console.log('Website developed with modern web technologies for optimal performance');
+    products = [...giftProducts];
+    setupEventListeners();
+    loadProducts();
 });
 
-// CSS for ripple animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes ripple {
-        to {
-            transform: scale(4);
-            opacity: 0;
+// Setup event listeners
+function setupEventListeners() {
+    // Login form submission
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+    }
+
+    // Close success messages when clicked
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.success-message')) {
+            hideSuccessMessage();
+        }
+    });
+}
+
+// Handle login validation
+function handleLogin(e) {
+    e.preventDefault();
+    
+    const userName = document.getElementById('userName').value.trim();
+    const userPhone = document.getElementById('userPhone').value.trim();
+    const errorMessage = document.getElementById('errorMessage');
+    
+    // Clear any existing error message
+    errorMessage.classList.add('hidden');
+    
+    // Validate both fields are filled
+    if (!userName || !userPhone) {
+        errorMessage.classList.remove('hidden');
+        return;
+    }
+    
+    // Basic phone number validation (must contain numbers)
+    if (!/\d/.test(userPhone)) {
+        errorMessage.classList.remove('hidden');
+        return;
+    }
+    
+    // Success - login user
+    currentUser = {
+        name: userName,
+        phone: userPhone
+    };
+    
+    // Switch to shop page
+    document.getElementById('loginPage').classList.remove('active');
+    document.getElementById('shopPage').classList.add('active');
+    
+    // Update welcome message
+    document.getElementById('welcomeUser').textContent = `Welcome, ${userName}! 🎉`;
+}
+
+// Load products into the grid
+function loadProducts() {
+    const productsGrid = document.getElementById('productsGrid');
+    if (!productsGrid) return;
+    
+    productsGrid.innerHTML = '';
+    
+    products.forEach(product => {
+        const productCard = createProductCard(product);
+        productsGrid.appendChild(productCard);
+    });
+}
+
+// Create product card element
+function createProductCard(product) {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}" class="product-image">
+        <div class="product-info">
+            <h3 class="product-name">${product.name}</h3>
+            <p class="product-price">₹${product.price}</p>
+            <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+            </button>
+        </div>
+    `;
+    return card;
+}
+
+// Add item to cart
+function addToCart(productId) {
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    
+    // Check if item already exists in cart
+    const existingItem = cart.find(item => item.id === productId);
+    
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({
+            ...product,
+            quantity: 1
+        });
+    }
+    
+    updateCartDisplay();
+    showSuccessMessage('Item Added to Cart Successfully!', 'Keep shopping for more amazing gifts!');
+}
+
+// Remove item from cart
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCartDisplay();
+}
+
+// Update cart display
+function updateCartDisplay() {
+    const cartCount = document.getElementById('cartCount');
+    const cartItems = document.getElementById('cartItems');
+    const cartTotal = document.getElementById('cartTotal');
+    
+    // Update cart count
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCount.textContent = totalItems;
+    
+    // Update cart items
+    if (cart.length === 0) {
+        cartItems.innerHTML = '<p style="text-align: center; color: #666; padding: 20px;">Your cart is empty</p>';
+    } else {
+        cartItems.innerHTML = cart.map(item => `
+            <div class="cart-item">
+                <img src="${item.image}" alt="${item.name}">
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-price">₹${item.price} x ${item.quantity}</div>
+                </div>
+                <button class="remove-item" onclick="removeFromCart(${item.id})">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `).join('');
+    }
+    
+    // Update total
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    cartTotal.textContent = total;
+}
+
+// Toggle cart sidebar
+function toggleCart() {
+    const cartSidebar = document.getElementById('cartSidebar');
+    cartSidebar.classList.toggle('open');
+    
+    // Add overlay for mobile
+    if (window.innerWidth <= 768) {
+        let overlay = document.querySelector('.cart-overlay');
+        if (!overlay) {
+            overlay = document.createElement('div');
+            overlay.className = 'cart-overlay';
+            overlay.onclick = toggleCart;
+            document.body.appendChild(overlay);
+        }
+        overlay.classList.toggle('active');
+    }
+}
+
+// Place order
+function placeOrder() {
+    if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+    }
+    
+    // Clear cart
+    cart = [];
+    updateCartDisplay();
+    
+    // Close cart
+    toggleCart();
+    
+    // Show success message
+    showOrderSuccess();
+}
+
+// Show success message
+function showSuccessMessage(title, message) {
+    const successDiv = document.getElementById('successMessage');
+    const titleElement = successDiv.querySelector('h3');
+    const messageElement = successDiv.querySelector('p');
+    
+    titleElement.textContent = title;
+    messageElement.textContent = message;
+    
+    successDiv.classList.remove('hidden');
+    
+    // Auto hide after 3 seconds
+    setTimeout(() => {
+        successDiv.classList.add('hidden');
+    }, 3000);
+}
+
+// Show order success
+function showOrderSuccess() {
+    const orderSuccess = document.getElementById('orderSuccess');
+    orderSuccess.classList.remove('hidden');
+    
+    // Auto hide after 5 seconds
+    setTimeout(() => {
+        orderSuccess.classList.add('hidden');
+    }, 5000);
+}
+
+// Hide success message
+function hideSuccessMessage() {
+    document.getElementById('successMessage').classList.add('hidden');
+    document.getElementById('orderSuccess').classList.add('hidden');
+}
+
+// Handle responsive behavior
+window.addEventListener('resize', function() {
+    const cartSidebar = document.getElementById('cartSidebar');
+    const overlay = document.querySelector('.cart-overlay');
+    
+    if (window.innerWidth > 768 && overlay) {
+        overlay.classList.remove('active');
+    }
+});
+
+// Add some fun animations and interactions
+document.addEventListener('DOMContentLoaded', function() {
+    // Add floating animation to creative images
+    const creativeImages = document.querySelectorAll('.creative-img');
+    creativeImages.forEach((img, index) => {
+        img.style.animationDelay = `${index * 0.5}s`;
+        img.classList.add('floating');
+    });
+    
+    // Add CSS for floating animation
+    const style = document.createElement('style');
+    style.textContent = `
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .product-card {
+            animation: slideInUp 0.6s ease-out;
+        }
+        
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    `;
+    document.head.appendChild(style);
+});
+
+// Add some Easter eggs and fun interactions
+let clickCount = 0;
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('creative-img')) {
+        clickCount++;
+        if (clickCount === 5) {
+            alert('🎉 You found the secret! Sanchita Didi will love this surprise! 🎉');
+            clickCount = 0;
         }
     }
-    
-    .loaded {
-        opacity: 1;
-        transition: opacity 0.3s ease;
+});
+
+// Add keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+    // Press 'C' to toggle cart
+    if (e.key.toLowerCase() === 'c' && !e.target.matches('input')) {
+        toggleCart();
     }
     
-    .error {
-        border-color: #f44336 !important;
-        box-shadow: 0 0 5px rgba(244, 67, 54, 0.3) !important;
+    // Press 'Escape' to close cart
+    if (e.key === 'Escape') {
+        const cartSidebar = document.getElementById('cartSidebar');
+        if (cartSidebar.classList.contains('open')) {
+            toggleCart();
+        }
+    }
+});
+
+// Add welcome message with current time
+function addTimeBasedGreeting() {
+    const hour = new Date().getHours();
+    let greeting = 'Welcome to SP Shop';
+    
+    if (hour < 12) {
+        greeting = '🌅 Good Morning! Welcome to SP Shop';
+    } else if (hour < 17) {
+        greeting = '☀️ Good Afternoon! Welcome to SP Shop';
+    } else {
+        greeting = '🌙 Good Evening! Welcome to SP Shop';
     }
     
-    .back-to-top:hover {
-        transform: translateY(-3px) !important;
-        box-shadow: 0 6px 20px rgba(76,175,80,0.4) !important;
+    const shopTitle = document.querySelector('.shop-title');
+    if (shopTitle) {
+        shopTitle.innerHTML = greeting;
     }
-`;
-document.head.appendChild(style);
+}
+
+// Initialize time-based greeting
+document.addEventListener('DOMContentLoaded', addTimeBasedGreeting);
